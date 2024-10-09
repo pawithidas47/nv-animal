@@ -16,10 +16,18 @@ export default {};
 
 <style scoped>
 .nv-navbar {
-  background-color: #f7d774; /* Bright background color */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Shadow for aesthetics */
+  background: linear-gradient(135deg, #4CAF50, #1E88E5); /* Gradient background with nature colors */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* More prominent shadow */
   padding: 15px 0;
   width: 100%;
+  position: sticky; /* Sticky navbar */
+  top: 0; /* Stick to the top of the page */
+  z-index: 1000; /* Ensure it stays above other content */
+  transition: background 0.5s; /* Smooth background transition */
+}
+
+.nv-navbar:hover {
+  background: linear-gradient(135deg, #4CAF50, #2196F3); /* Change gradient on hover */
 }
 
 .nv-navbar .nav {
@@ -31,27 +39,28 @@ export default {};
 }
 
 .nv-navbar .nav li {
-  margin: 0 15px; /* Spacing between menu items */
+  margin: 0 30px; /* Increase spacing between menu items */
 }
 
 .nv-navbar .nav li a {
   text-decoration: none;
-  color: #4a4a4a;
-  font-size: 16px;
+  color: #ffffff; /* White text color for contrast */
+  font-size: 20px; /* Increased font size */
   font-weight: bold;
-  transition: color 0.3s, background-color 0.3s; /* Hover effects */
-  padding: 8px 15px;
+  transition: color 0.3s, transform 0.3s, background 0.3s; /* Added transform transition */
+  padding: 10px 15px; /* Adjusted padding for better spacing */
   border-radius: 5px;
 }
 
 .nv-navbar .nav li a:hover {
-  background-color: #ffd700; /* Background color on hover */
-  color: #333; /* Text color on hover */
+  color: #fff; /* Change text color on hover */
+  background-color: rgba(255, 255, 255, 0.2); /* Add background color on hover */
+  transform: scale(1.1); /* Scale effect on hover */
 }
 
 .nv-navbar .nav li a.router-link-active {
-  background-color: #ffd700;
-  color: #333;
-  border-bottom: 2px solid darkslategrey; /* Underline for active link */
+  background-color: rgba(236, 227, 227, 0.3); /* Active link background with transparency */
+  color: #ffffff; /* Active link text color */
+  border-bottom: 3px solid rgba(255, 255, 255, 0.6); /* Thinner underline for active link */
 }
 </style>

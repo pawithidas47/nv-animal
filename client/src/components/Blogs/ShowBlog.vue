@@ -2,13 +2,12 @@
   <div class="container">
     <h1>Show Animal</h1>
     <div class="animal-details">
-      <img :src="BASE_URL + blog.picture" alt="Animal Image" v-if="blog.picture" style="width: 200px; height: auto;" />
+      <img :src="BASE_URL + blog.picture" alt="Animal Image" v-if="blog.picture" class="animal-image" />
       <p><strong>ID:</strong> {{ blog.id }}</p>
       <p><strong>ชื่อ:</strong> {{ blog.name }}</p>
       <p><strong>ที่อยู่อาศัย:</strong> {{ blog.habitat }}</p>
       <p><strong>อาหาร:</strong> {{ blog.food }}</p>
       <p><strong>ประเภท:</strong> {{ blog.status }}</p>
-      <img v-if="blog.image" :src="blog.image" alt="Animal Image" class="animal-image" />
     </div>
     <div class="button-group">
       <button v-on:click="navigateTo('/blog/edit/' + blog.id)" class="btn btn-primary">Edit</button>
@@ -49,16 +48,22 @@ export default {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s; /* เอฟเฟกต์การเคลื่อนไหว */
+}
+
+.container:hover {
+  transform: scale(1.02); /* ขยายเมื่อวางเมาส์ */
 }
 
 /* Title */
 h1 {
   text-align: center;
-  color: #333;
+  color: #ff6347; /* สีส้มแดง */
   margin-bottom: 20px;
+  font-family: 'Roboto', sans-serif; /* ใช้ฟอนต์ที่ทันสมัย */
 }
 
 /* Animal details styling */
@@ -75,15 +80,16 @@ h1 {
 .animal-image {
   max-width: 100%;
   height: auto;
-  border-radius: 5px;
+  border-radius: 10px; /* มุมมน */
   margin-top: 10px;
+  border: 2px solid #ff6347; /* ขอบที่สวยงาม */
 }
 
 /* Button group styling */
 .button-group {
   display: flex;
   justify-content: center; /* จัดให้ปุ่มอยู่กลาง */
-  gap: 10px; /* เพิ่มระยะห่างระหว่างปุ่ม */
+  gap: 15px; /* เพิ่มระยะห่างระหว่างปุ่ม */
   margin-top: 20px; /* เพิ่มระยะห่างระหว่างรายละเอียดและปุ่ม */
 }
 
@@ -94,27 +100,28 @@ h1 {
   border-radius: 4px;
   cursor: pointer;
   text-align: center;
-  transition: background-color 0.3s, transform 0.3s; /* เพิ่มเอฟเฟกต์ที่ราบรื่น */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เพิ่มเงาให้ปุ่ม */
+  transition: background-color 0.3s, transform 0.3s; /* เอฟเฟกต์การเคลื่อนไหวที่ราบรื่น */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* เงาให้ปุ่ม */
+  font-family: 'Roboto', sans-serif; /* ฟอนต์ที่ทันสมัย */
 }
 
 .btn-primary {
-  background-color: #007bff;
+  background-color: #ff6347; /* สีปุ่มหลัก */
   color: white;
 }
 
 .btn-primary:hover {
-  background-color: #0056b3;
+  background-color: #d9534f; /* สีเมื่อ hover */
   transform: translateY(-2px); /* ยกปุ่มขึ้นเมื่อ hover */
 }
 
 .btn-secondary {
-  background-color: #6c757d;
+  background-color: #6c757d; /* สีปุ่มรอง */
   color: white;
 }
 
 .btn-secondary:hover {
-  background-color: #5a6268;
+  background-color: #5a6268; /* สีเมื่อ hover */
   transform: translateY(-2px); /* ยกปุ่มขึ้นเมื่อ hover */
 }
 </style>

@@ -1,33 +1,35 @@
 <template>
     <div class="container">
-        <h2>สัตว์ทั้งหมด</h2>
+        <h2>All Animal</h2>
         <p><button class="btn btn-logout" @click="logout">Log out</button></p>
-        
+
         <h4 class="count">จำนวนสัตว์: {{ filteredBlogs.length }} ตัว</h4>
-        
+
         <div>
             <input class="search-input" type="text" v-model="searchQuery" placeholder="ค้นหา..." />
         </div><br>
 
         <div class="filter-buttons">
-            <button class="btn btn-category" @click="filterBlogs('ทั้งหมด')">แสดงทั้งหมด</button> 
+            <button class="btn btn-category" @click="filterBlogs('ทั้งหมด')">แสดงทั้งหมด</button>
             <button class="btn btn-category" @click="filterBlogs('สัตว์เลี้ยงลูกด้วยนม')">สัตว์เลี้ยงลูกด้วยนม</button>
             <button class="btn btn-category" @click="filterBlogs('สัตว์ปีก')">สัตว์ปีก</button>
             <button class="btn btn-category" @click="filterBlogs('สัตว์เลี้ยงเลื้อยคลาน')">สัตว์เลี้ยงเลื้อยคลาน</button>
-            <button class="btn btn-category" @click="filterBlogs('สัตว์ครึ่งบกครึ่งน้ำ')">สัตว์ครึ่งบกครึ่งน้ำ</button> 
+            <button class="btn btn-category" @click="filterBlogs('สัตว์ครึ่งบกครึ่งน้ำ')">สัตว์ครึ่งบกครึ่งน้ำ</button>
             <button class="btn btn-category" @click="filterBlogs('สัตว์น้ำ')">สัตว์น้ำ</button>
         </div>
 
         <p><button class="btn btn-add" @click="navigateTo('/blog/create')">Add Animal</button></p>
 
-        <div class="animal-list">
+        <div class="animal-grid">
             <div v-for="blog in filteredBlogs" :key="blog.id" class="animal-card">
                 <img :src="BASE_URL + blog.picture" alt="Animal Image" v-if="blog.picture" class="animal-image" />
-                <p><strong>รหัส:</strong> {{ blog.id }}</p>
-                <p><strong>ชื่อ:</strong> {{ blog.name }}</p>
-                <p><strong>ที่อยู่อาศัย:</strong> {{ blog.habitat }}</p>
-                <p><strong>อาหาร:</strong> {{ blog.food }}</p>
-                <p><strong>ประเภท:</strong> {{ blog.status }}</p>
+                <div class="animal-info">
+                    <p><strong>รหัส:</strong> {{ blog.id }}</p>
+                    <p><strong>ชื่อ:</strong> {{ blog.name }}</p>
+                    <p><strong>ที่อยู่อาศัย:</strong> {{ blog.habitat }}</p>
+                    <p><strong>อาหาร:</strong> {{ blog.food }}</p>
+                    <p><strong>ประเภท:</strong> <span class="status">{{ blog.status }}</span></p>
+                </div>
                 <div class="button-group">
                     <button class="btn btn-view" @click="navigateTo('/blog/' + blog.id)">View</button>
                     <button class="btn btn-edit" @click="navigateTo('/blog/edit/' + blog.id)">Edit</button>
@@ -99,133 +101,166 @@ export default {
 
 <style scoped>
 .container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
+    background-color: #ffffff; /* เปลี่ยนพื้นหลังเป็นสีขาว */
     border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    color: #333;
+    color: #2c3e50; /* Dark color for headings */
+    font-size: 2.5rem; /* Increase font size */
 }
 
 .count {
     font-weight: bold;
-    color: #007bff;
+    color: #16a085; /* Turquoise color */
     text-align: center;
+    font-size: 1.5rem; /* Adjust font size */
 }
 
 .search-input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
+    padding: 12px;
+    border: 2px solid #27ae60; /* Green border */
     border-radius: 5px;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .search-input:focus {
-    border-color: #007bff;
+    border-color: #1abc9c; /* Darker green on focus */
+    box-shadow: 0 0 5px rgba(46, 204, 113, 0.5);
 }
 
 .filter-buttons {
     margin: 20px 0;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 .btn {
-    padding: 10px 15px;
+    padding: 12px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 14px;
-    flex: 1;
-    margin: 0 5px;
-    transition: background-color 0.3s, transform 0.2s;
+    font-size: 16px;
+    flex: 1 1 30%; 
+    margin: 5px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 }
 
 .btn-category {
-    background-color: #007bff;
+    background-color: #0c79a4; /* Bright green */
     color: white;
 }
 
 .btn-category:hover {
-    background-color: #0056b3;
+    background-color: #38b6b6; /* Darker green on hover */
+    transform: translateY(-2px);
 }
 
 .btn-add {
-    background-color: #28a745;
+    background-color: #2980b9; /* Bright blue */
     color: white;
 }
 
 .btn-add:hover {
-    background-color: #218838;
+    background-color: #1f638d; /* Darker blue on hover */
+    transform: translateY(-2px);
 }
 
-.animal-list {
+.animal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
     margin-top: 20px;
 }
 
 .animal-card {
     padding: 15px;
-    margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff; /* White background for cards */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .animal-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transform: translateY(-5px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 }
 
 .animal-image {
-    width: 500px; /* เปลี่ยนความกว้างของรูป */
-    height: 200px; /* เปลี่ยนความสูงของรูป */
-    object-fit: cover; /* ให้รูปภาพปรับขนาดตามกรอบ */
-    margin-bottom: 10px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 5px 5px 0 0;
 }
+
+.animal-info {
+    margin: 10px 0;
+}
+
 .animal-card p {
     margin: 5px 0;
 }
 
 .button-group {
     display: flex;
-    justify-content: flex-start;
+    justify-content: space-between;
     margin-top: 10px;
 }
 
 .btn-view {
-    background-color: #17a2b8;
+    background-color: #3498db; /* Bright blue */
     color: white;
+    flex: 1;
+    margin-right: 5px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-edit {
-    background-color: #ffc107;
+    background-color: #f1c40f; /* Bright yellow */
     color: black;
+    flex: 1;
+    margin-right: 5px;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-delete {
-    background-color: #dc3545;
+    background-color: #e74c3c; /* Bright red */
     color: white;
+    flex: 1;
+    transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-view:hover {
-    background-color: #138496;
+    background-color: #2980b9; /* Darker blue */
+    transform: translateY(-2px);
 }
 
 .btn-edit:hover {
-    background-color: #e0a800;
+    background-color: #f39c12; /* Darker yellow */
+    transform: translateY(-2px);
 }
 
 .btn-delete:hover {
-    background-color: #c82333;
+    background-color: #c0392b; /* Darker red */
+    transform: translateY(-2px);
 }
+
+/* Additional styling for status */
+.status {
+    font-weight: bold;
+    color: #e67e22; /* Use a bright orange for status */
+    text-transform: capitalize;
+}
+
 </style>
