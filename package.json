@@ -1,5 +1,5 @@
 {
-  "name": "nv-webblog-server",
+  "name": "nv-animal-client",
   "version": "1.0.0",
   "description": "nodejs vuejs webblog server (backend)",
   "main": "src/app.js",
