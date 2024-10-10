@@ -1,10 +1,12 @@
 module.exports = (sequelize, DataTypes) => {
-    const Blog = sequelize.define('Blog', {
+    const Animal = sequelize.define('Animal', {
         name: DataTypes.STRING,
         habitat: DataTypes.STRING,
         food: DataTypes.STRING,
         status: DataTypes.STRING,
         picture: DataTypes.STRING
-    })
-    return Blog
-}
+    }, {
+        tableName: 'Animal' // ระบุชื่อตารางที่ต้องการใช้
+    });
+    return Animal;
+};

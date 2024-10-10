@@ -56,9 +56,9 @@ module.exports = (sequelize, DataTypes) => {
         return bcrypt.compareSync(password, this.password)
     }
 
-    // เพิ่ม association กับโมเดลอื่น เช่น Blog
+    // เพิ่ม association กับโมเดลอื่น เช่น Animal
     User.associate = function (models) {
-        User.hasMany(models.Blog, { foreignKey: 'userId', as: 'blogs' })
+        User.hasMany(models.Animal, { foreignKey: 'userId', as: 'Animal' })
     }
 
     return User

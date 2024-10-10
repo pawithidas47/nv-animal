@@ -9,10 +9,11 @@ import Login from '@/components/Login'
 
 import CommentIndex from '@/components/Comments/index' 
 
-import BlogIndex from '@/components/Blogs/index'
-import BlogCreate from '@/components/Blogs/CreateBlog'
-import BlogShow from '@/components/Blogs/ShowBlog'
-import BlogEdit from '@/components/Blogs/EditBlog'
+import AnimalShow from '@/components/Animal/ShowAnimal';
+import AnimalIndex from '@/components/Animal/index'
+import AnimalCreate from '@/components/Animal/CreateAnimal'
+import AnimalEdit from '@/components/Animal/EditAnimal'
+
 
 Vue.use(Router)
 
@@ -45,25 +46,25 @@ export default new Router({
       component: Login
     },
     {
-      path: '/blogs',
-      name: 'blogs',
-      component: BlogIndex
-    },
-    {
-      path: '/blog/create',
-      name: 'blog-create',
-      component: BlogCreate
-    },
-    {
-      path: '/blog/edit/:blogId',
-      name: 'blog-edit',
-      component: BlogEdit
-    },
-    {
-      path: '/blog/:blogId',
-      name: 'blog',
-      component: BlogShow
-    },
+      path: '/Animal',
+      name: 'Animal',
+      component: AnimalIndex
+  },
+  {
+      path: '/Animal/create',
+      name: 'Animal-create',
+      component: AnimalCreate
+  },
+  {
+      path: '/Animal/edit/:AnimalId',
+      name: 'Animal-edit',
+      component: AnimalEdit
+  },
+  {
+      path: '/Animal/:AnimalId',
+      name: 'Animal-show',
+      component: AnimalShow
+  },
     {
       path: '/comments',
       name: 'comments',

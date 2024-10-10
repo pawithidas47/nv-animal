@@ -1,25 +1,25 @@
 <template>
   <div class="container">
     <h1>แก้ไขสัตว์</h1>
-    <form @submit.prevent="editBlog" class="form-container">
+    <form @submit.prevent="editAnimal" class="form-container">
       <div class="form-group">
         <label for="name">ชื่อสัตว์:</label>
-        <input type="text" id="name" v-model="blog.name" class="form-input" required />
+        <input type="text" id="name" v-model="Animal.name" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label for="habitat">ที่อยู่อาศัย:</label>
-        <input type="text" id="habitat" v-model="blog.habitat" class="form-input" required />
+        <input type="text" id="habitat" v-model="Animal.habitat" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label for="food">อาหาร:</label>
-        <input type="text" id="food" v-model="blog.food" class="form-input" required />
+        <input type="text" id="food" v-model="Animal.food" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label for="status">ประเภท:</label>
-        <select id="status" v-model="blog.status" class="form-input" required>
+        <select id="status" v-model="Animal.status" class="form-input" required>
           <option value="สัตว์เลี้ยงลูกด้วยนม">สัตว์เลี้ยงลูกด้วยนม</option>
           <option value="สัตว์ปีก">สัตว์ปีก</option>
           <option value="สัตว์เลี้ยงเลื้อยคลาน">สัตว์เลี้ยงเลื้อยคลาน</option>
@@ -30,19 +30,19 @@
 
       <div class="form-group btn-group">
         <button type="submit" class="btn btn-primary">อัปเดตสัตว์</button>
-        <!-- <button @click="navigateTo('/blogs')" type="button" class="btn btn-secondary">กลับ</button> -->
+        <!-- <button @click="navigateTo('/Animal')" type="button" class="btn btn-secondary">กลับ</button> -->
       </div>
     </form>
   </div>
 </template>
 
 <script>
-import BlogsService from '@/services/BlogsService';
+import AnimalService from '@/services/AnimalService';
 
 export default {
   data() {
     return {
-      blog: {
+      Animal: {
         name: '',
         habitat: '',
         food: '',
@@ -51,10 +51,10 @@ export default {
     }
   },
   methods: {
-    async editBlog() {
+    async editAnimal() {
       try {
-        await BlogsService.put(this.blog);
-        this.$router.push({ name: 'blogs' });
+        await AnimalService.put(this.Animal);
+        this.$router.push({ name: 'Animal' });
       } catch (err) {
         console.log(err);
       }
@@ -65,8 +65,8 @@ export default {
   },
   async created() {
     try {
-      let blogId = this.$route.params.blogId;
-      this.blog = (await BlogsService.show(blogId)).data;
+      let AnimalId = this.$route.params.AnimalId;
+      this.Animal = (await AnimalService.show(AnimalId)).data;
     } catch (error) {
       console.log(error);
     }

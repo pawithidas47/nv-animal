@@ -1,7 +1,7 @@
 const UserController = require('./controllers/UserController');
 const UserAuthenController = require('./controllers/UserAuthenController');
 const isAuthenController = require('./authen/isAuthenController');
-const BlogController = require('./controllers/BlogController');
+const AnimalController = require('./controllers/AnimalController');
 const multer = require("multer");
 const fs = require('fs');
 
@@ -64,11 +64,11 @@ module.exports = (app) => {
     app.delete('/user/:userId', UserController.remove);
     app.post('/login', UserAuthenController.login);
 
-    // Blog routes
-    app.post('/blog', BlogController.create);
-    app.put('/blog/:blogId', BlogController.put);
-    app.delete('/blog/:blogId', BlogController.remove);
-    app.get('/blog/:blogId', BlogController.show);
-    app.get('/blogs', BlogController.index);
+    // Animal routes
+    app.post('/Animal', AnimalController.create);
+    app.put('/Animal/:AnimalId', AnimalController.put);
+    app.delete('/Animal/:AnimalId', AnimalController.remove);
+    app.get('/Animal/:AnimalId', AnimalController.show);
+    app.get('/Animal', AnimalController.index);
 
 };

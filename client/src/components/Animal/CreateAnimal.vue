@@ -1,25 +1,25 @@
 <template>
   <div class="container">
     <h1>Create Animal</h1>
-    <form v-on:submit.prevent="createBlog" class="form-container" enctype="multipart/form-data">
+    <form v-on:submit.prevent="createAnimal" class="form-container" enctype="multipart/form-data">
       <div class="form-group">
         <label for="name">ชื่อสัตว์:</label>
-        <input type="text" id="name" v-model="blog.name" class="form-input" required />
+        <input type="text" id="name" v-model="Animal.name" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label for="habitat">ที่อยู่อาศัย:</label>
-        <input type="text" id="habitat" v-model="blog.habitat" class="form-input" required />
+        <input type="text" id="habitat" v-model="Animal.habitat" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label for="food">อาหาร:</label>
-        <input type="text" id="food" v-model="blog.food" class="form-input" required />
+        <input type="text" id="food" v-model="Animal.food" class="form-input" required />
       </div>
 
       <div class="form-group">
         <label for="status">ประเภท:</label>
-        <select id="status" v-model="blog.status" class="form-input" required>
+        <select id="status" v-model="Animal.status" class="form-input" required>
           <option value="สัตว์เลี้ยงลูกด้วยนม">สัตว์เลี้ยงลูกด้วยนม</option>
           <option value="สัตว์ปีก">สัตว์ปีก</option>
           <option value="สัตว์เลี้ยงเลื้อยคลาน">สัตว์เลี้ยงเลื้อยคลาน</option>
@@ -49,13 +49,13 @@
 </template>
 
 <script>
-import BlogsService from "@/services/BlogsService";
+import AnimalService from "@/services/AnimalService";
 import UploadService from "@/services/UploadService"; // เพิ่มการนำเข้า UploadService
 
 export default {
   data() {
     return {
-      blog: {
+      Animal: {
         name: "",
         habitat: "",
         food: "",
@@ -67,18 +67,18 @@ export default {
     };
   },
   methods: {
-    async createBlog() {
+    async createAnimal() {
       if (this.pictures.length === 0) {
         alert("Please upload a picture.");
         return;
       }
 
-      // อัปเดตชื่อไฟล์ภาพใน blog ก่อนส่งไปยังเซิร์ฟเวอร์
-      this.blog.picture = this.pictures[0].name; // ใช้เฉพาะภาพแรก
+      // อัปเดตชื่อไฟล์ภาพใน Animal ก่อนส่งไปยังเซิร์ฟเวอร์
+      this.Animal.picture = this.pictures[0].name; // ใช้เฉพาะภาพแรก
 
       try {
-        await BlogsService.post(this.blog);
-        this.$router.push({ name: "blogs" });
+        await AnimalService.post(this.Animal);
+        this.$router.push({ name: "Animal" });
       } catch (err) {
         console.log(err);
       }

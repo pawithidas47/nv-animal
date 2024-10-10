@@ -2,34 +2,34 @@
   <div class="container">
     <h1>Show Animal</h1>
     <div class="animal-details">
-      <img :src="BASE_URL + blog.picture" alt="Animal Image" v-if="blog.picture" class="animal-image" />
-      <p><strong>ID:</strong> {{ blog.id }}</p>
-      <p><strong>ชื่อ:</strong> {{ blog.name }}</p>
-      <p><strong>ที่อยู่อาศัย:</strong> {{ blog.habitat }}</p>
-      <p><strong>อาหาร:</strong> {{ blog.food }}</p>
-      <p><strong>ประเภท:</strong> {{ blog.status }}</p>
+      <img :src="BASE_URL + Animal.picture" alt="Animal Image" v-if="Animal.picture" class="animal-image" />
+      <p><strong>ID:</strong> {{ Animal.id }}</p>
+      <p><strong>ชื่อ:</strong> {{ Animal.name }}</p>
+      <p><strong>ที่อยู่อาศัย:</strong> {{ Animal.habitat }}</p>
+      <p><strong>อาหาร:</strong> {{ Animal.food }}</p>
+      <p><strong>ประเภท:</strong> {{ Animal.status }}</p>
     </div>
     <div class="button-group">
-      <button v-on:click="navigateTo('/blog/edit/' + blog.id)" class="btn btn-primary">Edit</button>
-      <button v-on:click="navigateTo('/blogs')" class="btn btn-secondary">Back</button>
+      <button v-on:click="navigateTo('/Animal/edit/' + Animal.id)" class="btn btn-primary">Edit</button>
+      <button v-on:click="navigateTo('/Animal')" class="btn btn-secondary">Back</button>
     </div>
   </div>
 </template>
 
 <script>
-import BlogsService from '@/services/BlogsService';
+import AnimalService from '@/services/AnimalService';
 
 export default {
   data() {
     return {
-      blog: null,
+      Animal: null,
       BASE_URL: 'http://localhost:8081/assets/uploads/', // ตั้งค่า URL เบสที่ถูกต้อง
     };
   },
   async created() {
     try {
-      let blogId = this.$route.params.blogId;
-      this.blog = (await BlogsService.show(blogId)).data;
+      let AnimalId = this.$route.params.AnimalId;
+      this.Animal = (await AnimalService.show(AnimalId)).data;
     } catch (error) {
       console.log(error);
     }

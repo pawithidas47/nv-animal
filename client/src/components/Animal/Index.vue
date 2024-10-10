@@ -3,37 +3,37 @@
         <h2>All Animal</h2>
         <p><button class="btn btn-logout" @click="logout">Log out</button></p>
 
-        <h4 class="count">จำนวนสัตว์: {{ filteredBlogs.length }} ตัว</h4>
+        <h4 class="count">จำนวนสัตว์: {{ filteredAnimal.length }} ตัว</h4>
 
         <div>
             <input class="search-input" type="text" v-model="searchQuery" placeholder="ค้นหา..." />
         </div><br>
 
         <div class="filter-buttons">
-            <button class="btn btn-category" @click="filterBlogs('ทั้งหมด')">แสดงทั้งหมด</button>
-            <button class="btn btn-category" @click="filterBlogs('สัตว์เลี้ยงลูกด้วยนม')">สัตว์เลี้ยงลูกด้วยนม</button>
-            <button class="btn btn-category" @click="filterBlogs('สัตว์ปีก')">สัตว์ปีก</button>
-            <button class="btn btn-category" @click="filterBlogs('สัตว์เลี้ยงเลื้อยคลาน')">สัตว์เลี้ยงเลื้อยคลาน</button>
-            <button class="btn btn-category" @click="filterBlogs('สัตว์ครึ่งบกครึ่งน้ำ')">สัตว์ครึ่งบกครึ่งน้ำ</button>
-            <button class="btn btn-category" @click="filterBlogs('สัตว์น้ำ')">สัตว์น้ำ</button>
+            <button class="btn btn-category" @click="filterAnimal('ทั้งหมด')">แสดงทั้งหมด</button>
+            <button class="btn btn-category" @click="filterAnimal('สัตว์เลี้ยงลูกด้วยนม')">สัตว์เลี้ยงลูกด้วยนม</button>
+            <button class="btn btn-category" @click="filterAnimal('สัตว์ปีก')">สัตว์ปีก</button>
+            <button class="btn btn-category" @click="filterAnimal('สัตว์เลี้ยงเลื้อยคลาน')">สัตว์เลี้ยงเลื้อยคลาน</button>
+            <button class="btn btn-category" @click="filterAnimal('สัตว์ครึ่งบกครึ่งน้ำ')">สัตว์ครึ่งบกครึ่งน้ำ</button>
+            <button class="btn btn-category" @click="filterAnimal('สัตว์น้ำ')">สัตว์น้ำ</button>
         </div>
 
-        <p><button class="btn btn-add" @click="navigateTo('/blog/create')">Add Animal</button></p>
+        <p><button class="btn btn-add" @click="navigateTo('/Animal/create')">Add Animal</button></p>
 
         <div class="animal-grid">
-            <div v-for="blog in filteredBlogs" :key="blog.id" class="animal-card">
-                <img :src="BASE_URL + blog.picture" alt="Animal Image" v-if="blog.picture" class="animal-image" />
+            <div v-for="Animal in filteredAnimal" :key="Animal.id" class="animal-card">
+                <img :src="BASE_URL + Animal.picture" alt="Animal Image" v-if="Animal.picture" class="animal-image" />
                 <div class="animal-info">
-                    <p><strong>รหัส:</strong> {{ blog.id }}</p>
-                    <p><strong>ชื่อ:</strong> {{ blog.name }}</p>
-                    <p><strong>ที่อยู่อาศัย:</strong> {{ blog.habitat }}</p>
-                    <p><strong>อาหาร:</strong> {{ blog.food }}</p>
-                    <p><strong>ประเภท:</strong> <span class="status">{{ blog.status }}</span></p>
+                    <p><strong>รหัส:</strong> {{ Animal.id }}</p>
+                    <p><strong>ชื่อ:</strong> {{ Animal.name }}</p>
+                    <p><strong>ที่อยู่อาศัย:</strong> {{ Animal.habitat }}</p>
+                    <p><strong>อาหาร:</strong> {{ Animal.food }}</p>
+                    <p><strong>ประเภท:</strong> <span class="status">{{ Animal.status }}</span></p>
                 </div>
                 <div class="button-group">
-                    <button class="btn btn-view" @click="navigateTo('/blog/' + blog.id)">View</button>
-                    <button class="btn btn-edit" @click="navigateTo('/blog/edit/' + blog.id)">Edit</button>
-                    <button class="btn btn-delete" @click="deleteBlog(blog)">Delete</button>
+                    <button class="btn btn-view" @click="navigateTo('/Animal/' + Animal.id)">View</button>
+                    <button class="btn btn-edit" @click="navigateTo('/Animal/edit/' + Animal.id)">Edit</button>
+                    <button class="btn btn-delete" @click="deleteAnimal(Animal)">Delete</button>
                 </div>
             </div>
         </div>
@@ -41,48 +41,48 @@
 </template>
 
 <script>
-import BlogsService from '@/services/BlogsService'
-
+// import AnimalService from '@/services/AnimalService'
+import AnimalService from '@/services/AnimalService';
 export default {
     data() {
         return {
-            blogs: [],
+            Animal: [],
             BASE_URL: 'http://localhost:8081/assets/uploads/',
             filter: 'ทั้งหมด',
             searchQuery: ''
         }
     },
     computed: {
-        filteredBlogs() {
-            let filtered = this.filter === 'ทั้งหมด' ? this.blogs : this.blogs.filter(blog => blog.status === this.filter);
+        filteredAnimal() {
+            let filtered = this.filter === 'ทั้งหมด' ? this.Animal : this.Animal.filter(Animal => Animal.status === this.filter);
             
             if (this.searchQuery) {
                 const lowerSearchQuery = this.searchQuery.toLowerCase();
-                filtered = filtered.filter(blog => {
-                    return blog.id.toString().includes(lowerSearchQuery) || 
-                           blog.name.toLowerCase().includes(lowerSearchQuery) || 
-                           blog.habitat.toLowerCase().includes(lowerSearchQuery);
+                filtered = filtered.filter(Animal => {
+                    return Animal.id.toString().includes(lowerSearchQuery) || 
+                           Animal.name.toLowerCase().includes(lowerSearchQuery) || 
+                           Animal.habitat.toLowerCase().includes(lowerSearchQuery);
                 });
             }
             return filtered;
         }
     },
     async created() {
-        this.blogs = (await BlogsService.index()).data
+        this.Animal = (await AnimalService.index()).data
     },
     methods: {
         logout() {
             this.$store.dispatch('setToken', null)
-            this.$store.dispatch('setBlog', null)
+            this.$store.dispatch('setAnimal', null)
             this.$router.push({ name: 'login' })
         },
         navigateTo(route) {
             this.$router.push(route)
         },
-        async deleteBlog(blog) {
+        async deleteAnimal(Animal) {
             if (confirm("ต้องการลบข้อมูล?")) {
                 try {
-                    await BlogsService.delete(blog)
+                    await AnimalService.delete(Animal)
                     this.refreshData()
                 } catch (err) {
                     console.log(err)
@@ -90,9 +90,9 @@ export default {
             }
         },
         async refreshData() {
-            this.blogs = (await BlogsService.index()).data
+            this.Animal = (await AnimalService.index()).data
         },
-        filterBlogs(category) {
+        filterAnimal(category) {
             this.filter = category
         }
     }
